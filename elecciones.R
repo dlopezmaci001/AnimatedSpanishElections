@@ -4,12 +4,12 @@ library(ggplot2)
 library(gganimate)
 
 
-gdp_tidy1 <- read.csv2("C:/Users/daniel.lopez/Desktop/IE/eleciones.csv",dec=".")
+gdp_tidy1 <- read.csv2("YOUR PATH",dec=".")
 
 gdp_formatted3 <- gdp_tidy1 %>%
   group_by(mes) %>%
   # The * 1 makes it possible to have non-integer ranks while sliding
-  mutate(rank = rank(-Escaños)) %>% 
+  mutate(rank = rank(-EscaÃ±os)) %>% 
   group_by(Partido) %>% 
   ungroup()
 
@@ -17,13 +17,13 @@ gdp_formatted3 <- gdp_tidy1 %>%
 staticplot2 = ggplot(gdp_formatted3, aes(rank, group = Partido, 
                                         fill = as.factor(Partido)
                                         , color = as.factor(Partido))) +
-  geom_tile(aes(y = Escaños/2,
-                height = Escaños
+  geom_tile(aes(y = EscaÃ±os/2,
+                height = EscaÃ±os
                 ,width = 0.5
                 )
                 , alpha = 1, color = NA) +
   geom_text(aes(y = 0, label = paste(Partido, " ")),size=14, vjust = 0.5, hjust = 1) +
-  geom_text(aes(y=Escaños,label = Escaños, hjust=0),size=14) +
+  geom_text(aes(y=EscaÃ±os,label = EscaÃ±os, hjust=0),size=14) +
   coord_flip(clip = "off", expand = FALSE) +
   scale_y_continuous(labels = scales::comma) +
   scale_x_reverse() +
@@ -54,9 +54,9 @@ d <- staticplot2 +
 
 anim = d + transition_states(mes, transition_length = 1, state_length = 1) +
   view_follow(fixed_x = TRUE)   +
-  labs(title = 'Porcentaje de intención voto por partido : {closest_state}',  
-       subtitle  =  "Principales partidos en España",
-       caption  = "© A Nimerya Data Science Business Case")
+  labs(title = 'Porcentaje de intenciÃ³n voto por partido : {closest_state}',  
+       subtitle  =  "Principales partidos en EspaÃ±a",
+       caption  = "Â© A Nimerya Data Science Business Case")
 
 animate(anim, 200, fps = 8,  width = 1800, height = 1000, 
         renderer = gifski_renderer("gganim.gif"))
